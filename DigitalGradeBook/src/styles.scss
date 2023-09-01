@@ -1,0 +1,86 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; 
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+
+padding-top: 10vh;
+z-index: 1;
+ }
+ .mat-toolbar{
+    height: 64px !important;
+ }
+.text-md{
+    font-size: 12px;
+    padding: 5px;
+}
+.navbar{
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    overflow: hidden;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+}
+.header p{
+    padding: 5px;
+    margin: 10px;
+    font-family:monospace;
+    font-size: 12px;
+}
+.header p span{
+    color: #d3d4d5;
+}
+.logo{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    font-weight:900;
+}
+.container{
+    margin: 5vh 5vw;
+}
+.statistics-block{
+    margin-top: 2vh;
+}
+.footer-block{
+    background: #373A36;
+}
+.footer-block{
+    display: flex;
+    flex-direction: column;
+}
+.footer-block p{
+    padding: 2px;
+    margin: 2px;
+    font-family:monospace;
+    font-size: 12px;
+    margin: 0px 5vw;
+    font-family: cursive;
+}
+
+.footer-block p:nth-child(1){
+    font-size: 18px;
+    font-weight:900;
+    
+}
+
+.footer{
+    height: 25vh !important;
+   
+}
+.mdc-list-item__primary-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px !important;
+    overflow: hidden;
+}
+.h5{
+    font-family: monospace;
+    font-size: 14px;
+    
+}

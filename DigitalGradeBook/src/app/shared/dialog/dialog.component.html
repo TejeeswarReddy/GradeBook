@@ -1,0 +1,70 @@
+<div class="details-block">
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort class="dialog-table">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="no">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+            <td mat-cell *matCellDef="let row"> {{row.no}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        </ng-container>
+
+        <!-- Ticket number Column -->
+        <ng-container matColumnDef="ticket_number">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticket's Number </th>
+            <td mat-cell *matCellDef="let row"> {{row.ticket_number}} </td>
+        </ng-container>
+
+      <!-- Ticket number Column -->
+      <ng-container matColumnDef="ticket_topic">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticket's Topic </th>
+        <td mat-cell *matCellDef="let row"> {{row.ticket_topic}} </td>
+    </ng-container>
+
+     <!-- Exam Grade Column -->
+     <ng-container matColumnDef="exam_grade">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Exam Grade </th>
+      <td mat-cell *matCellDef="let row"> {{row.exam_grade}} </td>
+  </ng-container>
+
+        <!-- Rating Grade Column -->
+        <ng-container matColumnDef="rating_grade">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Rating Grade </th>
+            <td mat-cell *matCellDef="let row"> {{row.rating_grade}} </td>
+        </ng-container>
+
+       
+
+        <!-- Final Grade Column -->
+        <!-- <ng-container matColumnDef="final_grade">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Final Grade </th>
+            <td mat-cell *matCellDef="let row"> {{row.final_grade}} </td>
+        </ng-container> -->
+
+        <!-- Status Column -->
+        <!-- <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+        </ng-container> -->
+
+           <!-- Status Column -->
+        <ng-container matColumnDef="comment">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Comment </th>
+            <td mat-cell *matCellDef="let row"> {{row.comment}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="mat-header-row"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div mat-dialog-actions class="close-btn">
+      <button mat-ripple mat-icon-button (click)="closeDialog()" ><mat-icon>close</mat-icon></button>
+    </div>
+</div>
+
+</div>
+

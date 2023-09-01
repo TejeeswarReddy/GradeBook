@@ -1,0 +1,146 @@
+<div>
+    <mat-toolbar color="warn" class="navbar" style="background: #373a36;">
+        <!-- <span class="logo">GradeBook</span> -->
+        <img src="assets/images/Thomas.png">
+        <div class="text-md header">
+            <p>Title: <span> Grading Digital Book</span></p>
+            <p>Date: <span>02/05/2023</span> </p>
+            <p>Professor: <span>Sandeep Kaur</span> </p>
+            <p>College: <span>LPU</span> </p>
+            <p>Department: <span>Computer Science & Engineering</span> </p>
+            <p>Semester: <span>8th</span> </p>
+        </div>
+        <span class="example-spacer"></span>
+    </mat-toolbar>
+</div>
+<div class="container">
+<div class="main-block">
+        <mat-form-field appearance="outline" color = "warn" class="search">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event)"  placeholder="Ex - Jhonny" #input />
+        </mat-form-field>
+      
+      
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="no">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> NO </th>
+                <td mat-cell *matCellDef="let row"> {{row.no}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+            </ng-container>
+
+            <!-- Ticket number Column -->
+            <ng-container matColumnDef="ticket_number">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticket's Number </th>
+                <td mat-cell *matCellDef="let row"> {{row.ticket_number}} </td>
+            </ng-container>
+
+            <!-- Rating Grade Column -->
+            <ng-container matColumnDef="rating_grade">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Rating Grade </th>
+                <td mat-cell *matCellDef="let row"> {{row.rating_grade}} </td>
+            </ng-container>
+
+            <!-- Exam Grade Column -->
+            <ng-container matColumnDef="exam_grade">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Exam Grade </th>
+                <td mat-cell *matCellDef="let row"> {{row.exam_grade}} </td>
+            </ng-container>
+
+            <!-- Final Grade Column -->
+            <ng-container matColumnDef="final_grade">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Final Grade </th>
+                <td mat-cell *matCellDef="let row"> {{row.final_grade}} </td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="details">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Details </th>
+                <td mat-cell *matCellDef="let row"> {{row.details}}     <button matTooltip="Details" mat-ripple mat-icon-button color="warn" (click)="openDialog('3000ms', '1500ms', row)"><mat-icon>folder_open</mat-icon></button>
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'selectedRow': selectedRowIndex === row.no}"
+            (click)="onRowClick(row)"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the Search "{{input.value}}"</td>
+          </tr>
+        </table>
+        
+        <mat-paginator [pageSizeOptions]="[5, 10, 15, 20]" aria-label="Select page of users"></mat-paginator>
+    </div>
+    <mat-spinner diameter= "200" style="margin:0 auto;" class="center" *ngIf = "showSpinner" color = "warn"></mat-spinner>
+</div>
+<div class="statistics-block">
+    <mat-button-toggle-group   appearance = "legacy" name="toggle" aria-label="Toggle Button" (change)="onStatisticsChange($event)">
+        <mat-button-toggle   value="Show statistics" >SHOW STATISTICS</mat-button-toggle>
+        <mat-button-toggle  value="Hide statistics">HIDE STATISTICS</mat-button-toggle>
+        
+      </mat-button-toggle-group>
+      <mat-card *ngIf="is_statistics">
+        <mat-card-content>
+          <div class="stat">
+            <div>
+            <h5>Filtered list of students by choosing one of the options: all, passed, failed</h5>
+            <mat-form-field appearance="fill" >
+                <mat-label>Select the option for sorting</mat-label>
+                <mat-select>
+                  <mat-option value="All" (onSelectionChange)="filterStudentsByOption($event)">All</mat-option>
+                  <mat-option value="Passed" (onSelectionChange)="filterStudentsByOption($event)">Pass</mat-option>
+                  <mat-option value="Failed" (onSelectionChange)="filterStudentsByOption($event)">Fail</mat-option>
+                </mat-select>
+                <mat-hint align="end">Look Out for Details!</mat-hint>
+              </mat-form-field>
+            <mat-list>
+                <mat-list-item *ngFor="let student of filtered_student; let index=index">{{index + 1 }}.{{ student.name}}  - {{student.status}}</mat-list-item>
+              </mat-list>
+              <app-doughnut-chart></app-doughnut-chart>
+            </div>
+            <div>
+              <h5>The number of students that received a certain grade.</h5>
+              <mat-form-field appearance="fill" >
+                <mat-label>Select the Grade Option</mat-label>
+                <mat-select>
+                  <mat-option [value]="opt" *ngFor="let opt of grade_count_opt" (onSelectionChange)="selectOptionByGrade($event)">{{opt}}</mat-option>
+                </mat-select>
+                <mat-hint align="end">Look Out for Details!</mat-hint>
+              </mat-form-field>
+              <p>Count Students By Grade: {{ count_student_by_grade}}</p> 
+              <h5>The average / maximal / minimal grade.</h5>
+              <p>Average grade: {{average_grade}} </p>
+              <p>Maximal grade: {{maximal_grade}} </p>
+              <p>Minimal grade: {{minimal_grade}} </p>
+              <h5>The total number of students.</h5>
+              <p>Total Student: {{total_student}} </p>
+            </div>
+          </div> 
+        </mat-card-content>
+      </mat-card>
+</div>
+</div>
+<div class="footer-block">
+<mat-toolbar color="warn" class="footer"  style="background: #373a36;">
+    <div class="sign">
+            <p>Signature - <span>Tejeeswar</span></p> 
+            <p>Date:<span>02/05/2023</span> </p>
+            <p><mat-icon>code</mat-icon></p>
+            <p><mat-icon>favorite_border</mat-icon></p>
+        </div>
+        </mat-toolbar>
+    </div>
